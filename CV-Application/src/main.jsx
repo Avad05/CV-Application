@@ -6,9 +6,9 @@ import PersonalDetails from './components/Personal.jsx'
 import QualificationDetails from './components/Qualification.jsx'
 import ExperienceDetails from './components/Experience.jsx'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
     <PersonalDetails />
     <QualificationDetails />
     <ExperienceDetails />
