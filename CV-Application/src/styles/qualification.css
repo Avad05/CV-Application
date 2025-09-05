@@ -7,3 +7,6 @@
 h2{
     cursor: pointer;
 }
+.no-bullets{
+    list-style-type: none;
+}

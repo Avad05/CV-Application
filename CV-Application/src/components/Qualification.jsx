@@ -18,10 +18,14 @@ export default function QualificationDetails(){
     const [showEntire, setShowEntire] = useState(false);
     const onClick2 = () => {setShowEntire(!showEntire)}
     const [isRotated, setisRotated] = useState(false);
-    const handleClick = () => {setisRotated(!isRotated);}
+    const handleClick = () => {setisRotated(!isRotated)};
+    const [items, setItems] = useState([]);
 
-
-   
+             const handleSave = () => {
+             setItems([...items, school]);
+             }
+              
+          
 
 
     return(
@@ -29,6 +33,16 @@ export default function QualificationDetails(){
            
           <h2 onClick={onClick2}><FaGraduationCap /> Education  <FaAngleDown  className={`arrow ${isRotated ? 'rotated' : ''}`}
             onClick={handleClick}/>  </h2>
+            
+
+          <ul className='no-bullets'>
+              {items.map((item, index) =>(
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+
+
+           
 
           {showEntire ? null : null}        
 
@@ -40,6 +54,7 @@ export default function QualificationDetails(){
                   <input type='text'
                   value={school}
                    onChange={(event) => setSchool(event.target.value)}
+                   placeholder='enter your tier 3 college XD'
                   /> <br />
          
          
@@ -73,6 +88,13 @@ export default function QualificationDetails(){
                      onChange={(event) => setLocation(event.target.value)}
         
              />
+              <br /><br />
+              <button type='submit' onClick={ () => {
+                handleSave();
+                onClick();
+                }
+                }>Submit</button>
+              {showResult ? null : null}
               <br /><br />
         
            </>          

@@ -13,17 +13,27 @@ export default function ExperienceDetails(){
         const [endYear, setEndYear] = useState("")
         const [location, setLocation] = useState("")
         const [showResult, setShowResult] = useState(false)
-        const onClick = () => {setShowResult(!showResult)} 
+        const onClick = () => {setShowResult(!showResult); setCompany(''); setJob(''); setEndYear(''); setStartYear('');setLocation('')} 
         const [showEntire, setShowEntire] = useState(false)
         const onClick3 = () => {setShowEntire(!showEntire)}
         const [isRotated, setisRotated] = useState(false);
         const handleClick = () => {setisRotated(!isRotated);}
+        const [items, setItems] = useState([]);
+        const handleSave = () => {
+        setItems([...items, company]);
+        }
 
            return(
             <>
               <h2 onClick={onClick3}><FaBriefcase /> Experience   <FaAngleDown  onClick={handleClick} className={`arrow ${isRotated ? 'rotated' : ''}`}
                /> </h2>
               {showEntire ? null : null}
+
+              <ul className='no-bullets'>
+              {items.map((item, index) =>(
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
 
 
               {showEntire && (
@@ -62,7 +72,15 @@ export default function ExperienceDetails(){
                  <input type='text'
                  value={location}
                  onChange={(event) => setLocation(event.target.value)}
-                  /><br  /> <br />
+                  /><br  />
+                  <br />
+              <button type='submit' onClick={ () => {
+                handleSave();
+                onClick();
+                }
+                }>Submit</button>
+              {showResult ? null : null}
+              <br /><br />
 
                   </>
               )}
@@ -71,6 +89,7 @@ export default function ExperienceDetails(){
                 <>
                 <button className="addEducation" onClick={onClick}> + Experience</button>
                 {showResult ? null : null}
+
                 </> 
               
                 </>
