@@ -1,114 +1,175 @@
-
-import { useState } from 'react'
-import { FaGraduationCap } from 'react-icons/fa'
+import { useState } from 'react';
+import { FaGraduationCap, FaAngleDown } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FaAngleDown } from 'react-icons/fa';
 import '../styles/qualification.css';
 
-export default function QualificationDetails(){
+// An empty object to reset the form state
+const initialFormState = {
+  school: '',
+  degree: '',
+  startYear: null,
+  endYear: null,
+  location: '',
+};
 
-    const [school, setSchool] = useState("");
-    const [degree, setDegree] = useState("");
-    const [selectedYear, setSelectedYear]  = useState("");
-    const [end, setEnd] = useState("");
-    const [location, setLocation] = useState("");
-    const [showResult, setShowResult] = useState(false);
-    const onClick = () => {setShowResult(!showResult)}
-    const [showEntire, setShowEntire] = useState(false);
-    const onClick2 = () => {setShowEntire(!showEntire)}
-    const [isRotated, setisRotated] = useState(false);
-    const handleClick = () => {setisRotated(!isRotated)};
-    const [items, setItems] = useState([]);
+export default function QualificationDetails() {
+  // 1. Single state for the entire list of education objects
+  const [educations, setEducations] = useState([
+    {
+      id: 1,
+      school: 'Mumbai University',
+      degree: 'B.Sc. IT',
+      startYear: new Date('2019'),
+      endYear: new Date('2022'),
+      location: 'Mumbai',
+    },
+  ]);
 
-             const handleSave = () => {
-             setItems([...items, school]);
-             }
-              
-          
+  // 2. State to manage the form. `null` means hidden, 'new' means adding, an id means editing.
+  const [editingId, setEditingId] = useState(null);
 
+  // 3. Single state for all form inputs
+  const [formData, setFormData] = useState(initialFormState);
 
-    return(
-        <>
-           
-          <h2 onClick={onClick2}><FaGraduationCap /> Education  <FaAngleDown  className={`arrow ${isRotated ? 'rotated' : ''}`}
-            onClick={handleClick}/>  </h2>
-            
+  // State to control the collapsible section
+  const [isSectionOpen, setSectionOpen] = useState(true);
 
-          <ul className='no-bullets'>
-              {items.map((item, index) =>(
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
+  // --- Event Handlers ---
 
+  // When user clicks "+ Add Education"
+  const handleAddNew = () => {
+    setFormData(initialFormState); // Clear form fields
+    setEditingId('new'); // Set mode to 'new' to show the form
+  };
 
-           
+  // When user clicks an existing education item
+  const handleEdit = (education) => {
+    setFormData(education); // Pre-fill the form with the item's data
+    setEditingId(education.id); // Set mode to 'edit'
+  };
+  
+  // When user types in the form
+  const handleFormChange = (fieldName, value) => {
+    setFormData({ ...formData, [fieldName]: value });
+  };
 
-          {showEntire ? null : null}        
-
-          {showEntire && (
-            <>
-          {showResult &&( 
-         <>
-                  <label className='required'>School</label> <br />
-                  <input type='text'
-                  value={school}
-                   onChange={(event) => setSchool(event.target.value)}
-                   placeholder='enter your tier 3 college XD'
-                  /> <br />
-         
-         
-                   <label className='required'>Degree</label> <br />
-                  <input type='text'
-                  value={degree}
-                  onChange={(event) => setDegree(event.target.value)}
-                  />
-                  <br />
-         
-                   <label className='required'>StartYear</label> <br /> 
-                  <DatePicker 
-                  selected={selectedYear}
-                  onChange={(date) => setSelectedYear(date)}
-                  dateFormat="yyyy" // Format to display only the year
-                  showYearPicker // Enable year-only selection
-                   /> <br />
-         
-         
-                  <label className='required'>EndYear</label> <br />
-                    <DatePicker 
-                   selected={end}
-                    onChange={(date) => setEnd(date)}
-                    dateFormat="yyyy" // Format to display only the year
-                      showYearPicker // Enable year-only selection
-                          /> <br />  
-                 
-                      <label>Location</label> <br />
-                       <input type='text'
-                       value={location}
-                     onChange={(event) => setLocation(event.target.value)}
-        
-             />
-              <br /><br />
-              <button type='submit' onClick={ () => {
-                handleSave();
-                onClick();
-                }
-                }>Submit</button>
-              {showResult ? null : null}
-              <br /><br />
-        
-           </>          
-          )}
-
-          <>
-          <button className='addEducation' onClick={onClick}> + Education</button>
-          {showResult ? null : null}
-          </>
-          </>
-        )}
-         </>
+  // When user clicks "Save"
+  const handleSave = (e) => {
+    e.preventDefault();
+    
+    // If we are editing an existing item
+    if (editingId && editingId !== 'new') {
+      setEducations(
+        educations.map((edu) =>
+          edu.id === editingId ? { ...formData, id: edu.id } : edu
         )
-        
-      
-         
+      );
+    } 
+    // If we are adding a new item
+    else {
+      setEducations([
+        ...educations,
+        { ...formData, id: Date.now() }, // Add new item with a unique ID
+      ]);
+    }
+
+    // Hide the form and reset
+    setEditingId(null);
+  };
+
+  // When user clicks "Cancel"
+  const handleCancel = () => {
+    setEditingId(null);
+  };
+  
+  // --- JSX Rendering ---
+
+  return (
+    <div className="qualification-container">
+      <h2 onClick={() => setSectionOpen(!isSectionOpen)}>
+        <FaGraduationCap /> Education
+        <FaAngleDown className={`arrow ${isSectionOpen ? 'rotated' : ''}`} />
+      </h2>
+
+      {isSectionOpen && (
+        <>
+          {/* If editingId is NOT null, show the form. Otherwise, show the list. */}
+          {editingId ? (
+            // --- THE FORM ---
+            <form onSubmit={handleSave} className="education-form">
+              <label className="required">School</label> <br />
+              <input
+                type="text"
+                value={formData.school}
+                onChange={(e) => handleFormChange('school', e.target.value)}
+                placeholder="e.g., Mumbai University"
+                required
+              /><br /> <br />
+
+              <label className="required">Degree</label> <br />
+              <input
+                type="text"
+                value={formData.degree}
+                onChange={(e) => handleFormChange('degree', e.target.value)}
+                placeholder="e.g., Bachelor's of Science"
+                required
+              /><br /> <br />
+              
+              <div className="date-fields">
+                <div>
+                  <label className="required">Start Year</label> <br />
+                  <DatePicker
+                    selected={formData.startYear}
+                    onChange={(date) => handleFormChange('startYear', date)}
+                    dateFormat="yyyy"
+                    showYearPicker
+                    required
+                  /><br /> <br />
+                </div>
+                <div>
+                  <label className="required">End Year</label><br />
+                  <DatePicker
+                    selected={formData.endYear}
+                    onChange={(date) => handleFormChange('endYear', date)}
+                    dateFormat="yyyy"
+                    showYearPicker
+                    required
+                  />
+                </div><br />
+              </div>
+
+              <label>Location</label><br />
+              <input
+                type="text"
+                value={formData.location}
+                onChange={(e) => handleFormChange('location', e.target.value)}
+                placeholder="e.g., Mumbai, India"
+              /><br /> <br />
+
+              <div className="form-buttons">
+                <button type="submit">Save</button>
+                <button type="button" onClick={handleCancel}>Cancel</button>
+              </div>
+            </form>
+          ) : (
+            // --- THE LIST VIEW ---
+            <>
+              <div className="education-list">
+                {educations.map((edu) => (
+                  <div key={edu.id} className="list-item" onClick={() => handleEdit(edu)}>
+                    <strong>{edu.school}</strong>
+                    <span>{edu.degree}</span>
+                  </div>
+                ))}
+              </div>
+              <button className="add-button" onClick={handleAddNew}>
+                + Education
+              </button>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  );
 }
