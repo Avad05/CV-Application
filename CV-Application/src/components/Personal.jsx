@@ -1,39 +1,46 @@
 import { useState } from "react"
 import '../styles/personal.css'
+import Personaldisplay from "./PersonalDisplay"
 
-export default function PersonalDetails(){
+export default function PersonalDetails({ setFormData }) {
+  const [localData, setLocalData] = useState({
+    name: '',
+    mail: '',
+    phone: '',
+    address: '',
+  });
 
-    const[name, setName] = useState("")
-    const[mail, setMail] = useState("")
-    const[phone, setPhone] = useState("")
-    const[address, setAddress] = useState("")
-    return(
-        <>
-        <h2>Personal Details</h2>
-        <label className="required">Full Name</label> <br />
-        <input type="text"
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-        /><br />
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setLocalData({
+      ...localData,
+      [name]: value,
+    });
+  };
 
-        <label className="required">Email</label> <br />
-        <input type="email" 
-         value={mail}
-         onChange={(event) => setMail(event.target.value)}
-        /><br />
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setFormData(localData);  // ✅ Send data up to App
+    console.log('i am working')
+  };
 
-        <label className="required">Phone No.</label> <br />
-        <input type="phone"
-        value={phone}
-        onChange={(event) => setPhone(event.target.value)}
-        /><br />
+  return (
+    <form onSubmit={handleSubmit} className="personal">
+      <h2>Personal Details</h2>
 
-        <label>Address</label> <br />
-        <input type="text"
-        value={address}
-        onChange={(event) => setAddress(event.target.value)}
-        /><br />
+      <label>Full Name</label><br/>
+      <input type="text" name="name" value={localData.name} onChange={handleInputChange} className="first" /><br/>
 
-        </>
-    )
+      <label>Email</label><br/>
+      <input type="email" name="mail" value={localData.mail} onChange={handleInputChange} className="first"/><br/>
+
+      <label>Phone No.</label><br/>
+      <input type="tel" name="phone" value={localData.phone} onChange={handleInputChange} className="first"/><br/>
+
+      <label>Address</label><br/>
+      <textarea type="text" name="address" value={localData.address} onChange={handleInputChange} className="longer"/><br/> <br />
+
+      <button type="submit">Add</button>
+    </form>
+  );
 }

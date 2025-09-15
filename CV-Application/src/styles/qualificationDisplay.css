@@ -1,0 +1,16 @@
+.edu-item{
+    display: flex;
+    margin-left: 5%;
+    gap: 50px;
+}
+.h2{
+    background-color: #dedcdc;
+    margin: 10px;
+    color: #103D5B;
+}
+
+.internal1{
+    display: flex;
+    gap: 0px;
+    flex-direction: column ;
+}

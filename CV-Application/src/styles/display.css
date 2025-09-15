@@ -1,0 +1,15 @@
+
+.body{
+    height: 150vh;
+    width: 55vw;
+    background-color: #ffff;
+    display: flex;
+    flex-direction: column; 
+    margin-top: 0%;
+    padding-top: 0%;
+}
+
+.heading{
+    background-color: #103D5B;
+    color: white;
+}

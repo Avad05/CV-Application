@@ -10,3 +10,28 @@ h2{
 .no-bullets{
     list-style-type: none;
 }
+.education-form{
+    background-color: white;
+    padding: 50px;
+    padding-top: 2%;
+    border-radius: 10px;
+}
+
+.grey{
+    background-color: #dedcdc;
+    border: 0px;
+    border-radius: 4px;
+    height: 35px;
+    width: 200px;
+    color: black;
+    padding: 2px;
+}
+
+.form-buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.FaCalendarAlt{
+    height: 70px;
+}

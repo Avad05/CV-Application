@@ -1,0 +1,10 @@
+.internal{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+p{
+    display: flex;
+    align-items: center;
+    gap:2px
+}
