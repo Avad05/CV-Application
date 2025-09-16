@@ -7,9 +7,11 @@ export default function ExperienceDisplay ({formData3}){
         <div className="internal2">
         <h2 className='h2'>Experience</h2>
            {formData3.map((exp) => (
+            exp.id === 1 ? null : (
             <div key={exp.id} className="exp-items" >
+                
                 <div className="loc">
-                    <p>{exp.startYear?.getFullYear()}  {exp.endYear?.getFullYear()}</p>
+                    <p>{exp.startYear?.getFullYear()} - {exp.endYear?.getFullYear()}</p>
                     <p>{exp.location}</p>
                 </div>
                 <div className="pos">
@@ -19,6 +21,7 @@ export default function ExperienceDisplay ({formData3}){
                 </div>    
 
              </div>
+            )
            ))} 
         </div>
         </>

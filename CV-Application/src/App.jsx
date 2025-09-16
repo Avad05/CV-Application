@@ -2,6 +2,7 @@ import Display from './components/Display'
 import ExperienceDetails from './components/Experience'
 import QualificationDetails from './components/Qualification'
 import PersonalDetails from './components/Personal'
+import Logo from './components/Logo'
 import '../src/styles/display.css'
 import '../src/styles/personal.css'
 import './App.css'
@@ -16,6 +17,9 @@ function App() {
 
   return (
     <div className='entire'>
+      <div>
+      <Logo />
+      </div>
        <div>
         <PersonalDetails setFormData={setFormData}/>
        <QualificationDetails setFormData1={setFormData1}/> 
