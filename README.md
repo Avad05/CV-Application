@@ -3,6 +3,7 @@
 A simple and responsive **CV Builder web application** built using **React**.
 This project allows users to create and preview a professional CV directly in the browser.
 
+
 🚀 Features
 
 * Interactive CV form
@@ -12,13 +13,13 @@ This project allows users to create and preview a professional CV directly in th
 * Linted and formatted using ESLint
 * Responsive design for different screen sizes
 
----
 
 🛠 Tech Stack
 Frontend: React
 Linting: ESLint
 Styling: CSS 
 Build Tool: Vite
+
 
 
 🧑‍💻 Getting Started
@@ -28,12 +29,14 @@ Prerequisites
 * Node.js (v16 or above recommended)
 * npm or yarn
 
+
 Installation
 
 git clone https://github.com/your-username/cv-builder.git<br/>
 cd cv-builder<br/>
 npm install<br/>
 npm run dev<br/>
+
 
 📌 Notes
 
@@ -42,6 +45,8 @@ npm run dev<br/>
 * Data is handled in-memory (state-based).
 * Suitable for learning React component structure and state management.
 
+  
+
 🎯 Future Improvements
 
 * Export CV as PDF
@@ -49,10 +54,14 @@ npm run dev<br/>
 * Local storage support
 * Backend integration for saving profiles
 
+
+
 🤝 Contributing
 
 Contributions, suggestions, and improvements are welcome.
 Feel free to fork the repository and submit a pull request.
+
+
 
 📜 License
 
