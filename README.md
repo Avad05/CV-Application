@@ -20,18 +20,6 @@ Linting: ESLint
 Styling: CSS 
 Build Tool: Vite
 
-📂 Project Structure
-
-src/
-├── assets/
-├── components/
-├── styles/
-├── App.css
-├── App.jsx
-├── index.css
-└── main.jsx
-
-
 
 🧑‍💻 Getting Started
 
@@ -42,11 +30,10 @@ Prerequisites
 
 Installation
 
-bash
-git clone https://github.com/your-username/cv-builder.git
-cd cv-builder
-npm install
-npm run dev
+git clone https://github.com/your-username/cv-builder.git<br/>
+cd cv-builder<br/>
+npm install<br/>
+npm run dev<br/>
 
 📌 Notes
 
